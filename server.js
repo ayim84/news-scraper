@@ -48,9 +48,12 @@ app.get("/scrape", function(req, res)
                 return res.json(err);
             });
         });        
+    }).then(function()
+    {
+        res.redirect("/");  
     });
 
-    res.send("Scrape Complete!");
+    //res.send("Scrape Complete!");
 });
 
 app.get("/articles", function(req, res)
