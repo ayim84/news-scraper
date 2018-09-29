@@ -38,15 +38,18 @@ app.get("/scrape", function(req, res)
             result.url = articleContent.children("h1.headline").children().attr("href");
             result.summary = articleContent.children().children("p").text();
             
-            db.Article.create(result)
-            .then(function(dbArticle)
+            if(!result.url.includes("kinja") && !result.url.includes("deadspin-up-all-night"))
             {
-                console.log(dbArticle);
-            })
-            .catch(function(err)
-            {
-                return res.json(err);
-            });
+                db.Article.create(result)
+                .then(function(dbArticle)
+                {
+                    console.log(dbArticle);
+                })
+                .catch(function(err)
+                {
+                    return res.json(err);
+                });
+            }
         });        
     }).then(function()
     {
