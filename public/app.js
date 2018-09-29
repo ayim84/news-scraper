@@ -4,9 +4,12 @@ $.getJSON("/articles", function(data)
     for(var i = 0; i < data.length; i++)
     {
         var cardDiv = $("<div class='card'>");
-        var cardTitle = $("<h5 class='card-header text-center'>").text(data[i].headline);
+        var cardTitle = $("<h5 class='card-header text-center'>");//.text(data[i].headline);
+        var articleUrl = $("<a>").text(data[i].headline);
+        articleUrl.attr({href: data[i].url, target: "_blank", class: "text-dark"});
+        cardTitle.append(articleUrl);
         var cardBody = $("<div class='card-body'>").text(data[i].summary);
-        var cardButton = $("<button type='button' id='addNote' class='btn btn-primary' data-toggle='modal' data-target='#noteModal'>").text('Add/View Note(s)');
+        var cardButton = $("<button type='button' id='addNote' class='btn btn-info' data-toggle='modal' data-target='#noteModal'>").text('Add/View Note(s)');
         cardButton.attr("data-id", data[i]._id);
         var hr = $("<hr>");
 
