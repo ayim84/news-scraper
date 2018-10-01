@@ -34,6 +34,7 @@ $(document).on("click", "#addNote", function()
         $("#modalTitle").empty();
         $("#modalTitle").append(data.headline);
         $("#noteBody").append("<textarea class='form-control' id='noteText' rows='3'></textarea>");
+        // $("#noteBody").append("<p>").text("Notes");
         $(".modal-footer").html("<button type='button' id='saveNote' class='btn btn-primary' data-id = '" + data._id + "' data-dismiss='modal'>Save</button>");
 
         if(data.note)

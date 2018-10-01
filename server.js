@@ -24,32 +24,72 @@ mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
 
 app.get("/scrape", function(req, res)
 {
+    
+    
     axios.get("https://deadspin.com/").then(function(response)
     {
         var $ = cheerio.load(response.data);
-
+        
         $("div.post-wrapper").each(function(i, element)
         {
             var result = {};
-
+            var articleFound = false;
+            
             var articleContent = $(this).children().children();
-
+            
             result.headline = articleContent.children("h1.headline").children().text();
             result.url = articleContent.children("h1.headline").children().attr("href");
             result.summary = articleContent.children().children("p").text();
-            
-            if(!result.url.includes("kinja") && !result.url.includes("deadspin-up-all-night"))
+
+            console.log(result.headline);
+
+            db.Article.find({headline: result.headline})
+            .then(function(dbArticle)
             {
-                db.Article.create(result)
-                .then(function(dbArticle)
+                if(dbArticle[0])
                 {
-                    console.log(dbArticle);
-                })
-                .catch(function(err)
+                    articleFound = true;
+
+                }
+                else
                 {
-                    return res.json(err);
-                });
-            }
+                    articleFound = false;
+                }
+                // console.log("dbArticle: ", dbArticle);
+                console.log("Article Found Inside: " + articleFound);
+
+                if(!result.url.includes("kinja") && !result.url.includes("deadspin-up-all-night") && articleFound == false)
+                {
+                    db.Article.create(result)
+                    .then(function(dbArticle)
+                    {
+                        // console.log(dbArticle);
+                    })
+                    .catch(function(err)
+                    {
+                        return res.json(err);
+                    });
+                }
+            })
+            .catch(function(err)
+            {
+                res.json(err);
+            });
+
+            // console.log("Article Found: " + articleFound);
+
+            // if(!result.url.includes("kinja") && !result.url.includes("deadspin-up-all-night") && articleFound == false)
+            // {
+            //     db.Article.create(result)
+            //     .then(function(dbArticle)
+            //     {
+            //         // console.log(dbArticle);
+            //     })
+            //     .catch(function(err)
+            //     {
+            //         return res.json(err);
+            //     });
+            // }
         });        
     }).then(function()
     {
