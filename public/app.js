@@ -33,14 +33,17 @@ $(document).on("click", "#addNote", function()
         console.log(data);
         $("#modalTitle").empty();
         $("#modalTitle").append(data.headline);
+        $("#noteBody").append("<p id='textboxTitle'>")
+        $("#textboxTitle").text("Add Note:");
         $("#noteBody").append("<textarea class='form-control' id='noteText' rows='3'></textarea>");
-        // $("#noteBody").append("<p>").text("Notes");
         $(".modal-footer").html("<button type='button' id='saveNote' class='btn btn-primary' data-id = '" + data._id + "' data-dismiss='modal'>Save</button>");
 
         if(data.note)
         {
             console.log("poop");
             $("#noteBody").append("<hr>");
+            $("#noteBody").append("<p id='modalBodyText'>");
+            $("#modalBodyText").text("Previous Note:");
             $("#noteBody").append(data.note.body);
         }
     })
@@ -49,12 +52,17 @@ $(document).on("click", "#addNote", function()
 $(document).on("click", "#saveNote", function()
 {
     var thisId = $(this).attr("data-id");
+    var noteText = $("#noteText").val().trim();
+    console.log(noteText);
 
-    $.post("/articles/" + thisId, {body: $("#noteText").val().trim()})
-    .then(function(data)
+    if(noteText)
     {
-        console.log(data);
-        // $("#noteBody").empty();
-    });
+        $.post("/articles/" + thisId, {body: $("#noteText").val().trim()})
+        .then(function(data)
+        {
+            console.log(data);
+            // $("#noteBody").empty();
+        });
+    }
 
 });
