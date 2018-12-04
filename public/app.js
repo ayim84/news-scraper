@@ -9,7 +9,7 @@ $.getJSON("/articles", function(data)
         articleUrl.attr({href: data[i].url, target: "_blank", class: "text-dark"});
         cardTitle.append(articleUrl);
         var cardBody = $("<div class='card-body'>").text(data[i].summary);
-        var cardButton = $("<button type='button' id='addNote' class='btn btn-info' data-toggle='modal' data-target='#noteModal'>").text('Add/View Note(s)');
+        var cardButton = $("<button type='button' id='addNote' class='btn btn-info' data-toggle='modal' data-target='#noteModal'>").text('Add/View Note');
         cardButton.attr("data-id", data[i]._id);
         var hr = $("<hr>");
 
@@ -40,7 +40,6 @@ $(document).on("click", "#addNote", function()
 
         if(data.note)
         {
-            console.log("poop");
             $("#noteBody").append("<hr>");
             $("#noteBody").append("<p id='modalBodyText'>");
             $("#modalBodyText").text("Previous Note:");

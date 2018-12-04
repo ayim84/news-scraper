@@ -23,9 +23,7 @@ mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
 // mongoose.connect("mongodb://localhost/newsScraper", {useNewUrlParser: true});
 
 app.get("/scrape", function(req, res)
-{
-    
-    
+{    
     axios.get("https://deadspin.com/").then(function(response)
     {
         var $ = cheerio.load(response.data);
@@ -49,14 +47,14 @@ app.get("/scrape", function(req, res)
                 if(dbArticle[0])
                 {
                     articleFound = true;
-
                 }
                 else
                 {
                     articleFound = false;
                 }
-                // console.log("dbArticle: ", dbArticle);
+                console.log("dbArticle: ", dbArticle);
                 console.log("Article Found Inside: " + articleFound);
+                console.log("result.url: ", result.url);
 
                 if(!result.url.includes("kinja") && !result.url.includes("deadspin-up-all-night") && articleFound == false)
                 {
@@ -64,6 +62,7 @@ app.get("/scrape", function(req, res)
                     .then(function(dbArticle)
                     {
                         // console.log(dbArticle);
+                        console.log("inside then");
                     })
                     .catch(function(err)
                     {
@@ -101,6 +100,7 @@ app.get("/scrape", function(req, res)
 
 app.get("/articles", function(req, res)
 {
+    console.log("get articles");
     db.Article.find({})
     .then(function(dbArticle)
     {
