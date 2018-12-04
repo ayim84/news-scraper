@@ -1,6 +1,6 @@
 # Deadspin Scraper
 
-Deadspin Scraper is a full stack application that scrapes articles from Deadspin.com and stores their information in a MongoDB.  See the deployed site at: [https://aqueous-ocean-25661.herokuapp.com/].
+Deadspin Scraper is a full stack application that scrapes articles from Deadspin.com and stores their information in a MongoDB.  See the deployed site [here](https://aqueous-ocean-25661.herokuapp.com/).
 
 Click on the "Get Articles" button to scrape the newest articles from Deadspin.com which will be added to the end of the list.
 
