@@ -8,8 +8,8 @@ You can also click the "Add/View Note" button under each article to save a note 
 
 NPM packages used for this application:
 
-*[express](https://www.npmjs.com/package/express)
-*[body-parser](https://www.npmjs.com/package/body-parser)
-*[mongoose](https://www.npmjs.com/package/mongoose)
-*[axios](https://www.npmjs.com/package/axios)
-*[cheerio](https://www.npmjs.com/package/cheerio)
+* [express](https://www.npmjs.com/package/express)
+* [body-parser](https://www.npmjs.com/package/body-parser)
+* [mongoose](https://www.npmjs.com/package/mongoose)
+* [axios](https://www.npmjs.com/package/axios)
+* [cheerio](https://www.npmjs.com/package/cheerio)
